@@ -1,6 +1,34 @@
 = skippy
 
-Description goes here.
+A little Test::Unit/minitest extension to only run long running (or whatever) tests when given an environment variable.
+
+== Usage
+
+    # Wrap a whole test in skip
+    skip do
+      def test_this_thing
+        # test goes here...
+      end
+    end
+    
+    # ...or use inside of tests
+    def test_other_thing
+      skip do
+        long_running_operation(:here)
+        assert @things_about_it
+      end
+      
+      other_piece!
+      assert true
+    end
+    
+    # run without env var...
+    rake test
+    # ...and tests are skipped.
+    
+    # run *with* env var...
+    SKIP_OFF=true rake test
+    # ...and tests are not skipped.
 
 == Note on Patches/Pull Requests
  
